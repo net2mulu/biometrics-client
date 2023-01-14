@@ -1,17 +1,5 @@
 import { makeVar } from "@apollo/client";
 
-// Initializes to true if local storage includes a 'token' key, false otherwise
-export const isLoggedInVar = makeVar(!!localStorage.getItem("token"));
-
-// initialize access token
-export const accessTokenInVar = makeVar(null);
-
-// initialize refersh token
-export const refreshTokenInVar = makeVar(
-  sessionStorage.getItem("refreshToken")
-    ? sessionStorage.getItem("refreshToken")
-    : null
-);
 
 // intialize user data
 export const userDatavar = makeVar({
@@ -19,6 +7,11 @@ export const userDatavar = makeVar({
   email: "",
   phoneNumber: "",
   password: "",
+  accessTokenVar: null,
+  refreshTokenVar: sessionStorage.getItem("refreshToken")
+  ? sessionStorage.getItem("refreshToken")
+  : null,
+  isLoggedInVar: !!localStorage.getItem("token")
 });
 
 // initialize ossc data

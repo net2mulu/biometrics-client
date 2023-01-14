@@ -13,7 +13,9 @@ const RoutesList = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Login />} />
       </Route>
-      <Route path="/home" element={<Home />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/home" element={<Home />} />
+      </Route>
     </Routes>
   );
 

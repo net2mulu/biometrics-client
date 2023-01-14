@@ -1,20 +1,35 @@
-import React from "react";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import { useLazyQuery, useMutation } from "@apollo/client";
+//components
 import Button from "../../components/shared/Button";
 import LabeledInput from "../../components/shared/LabeledInput";
 // asset imports
 import LogoPrimary from "../../assets/images/logo-primary.svg";
 import molsImage from "../../assets/images/mols.png";
-//form hook
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+//apollo related imports
+import { SIGN_IN } from "../../apollo/mutation";
+import { OSSC_LABOUR_DATA_RID } from "../../apollo/query";
+import { osscDataVar, userDatavar } from "../../apollo/store";
+//handlers
+import { trackPromise } from "react-promise-tracker";
+import { toast } from "react-hot-toast";
+import { handleErrorMessage } from "../../components/utills/Helpers";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const schema = yup.object().shape({
     phone: yup.string().min(9).required(),
     password: yup.string().required(),
   });
 
+  // mutation
+  const [signIn] = useMutation(SIGN_IN);
+  //query
+  const [getOSSCLabourData] = useLazyQuery(OSSC_LABOUR_DATA_RID);
   const {
     register,
     handleSubmit,
@@ -23,8 +38,58 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (e, data) => {
+  const onSubmit = (data) => {
     console.log(data);
+    trackPromise(
+      signIn({
+        variables: {
+          phoneNumber: "+251" + data.phone,
+          password: data.password,
+        },
+        onCompleted(res) {
+          console.log(res)
+          let signInResponse = res?.signIn;
+
+          // set access token, refresh token and user data
+          userDatavar({
+            id: signInResponse?.data.id,
+            email: signInResponse?.data?.email,
+            phoneNumber: signInResponse?.data?.phoneNumber,
+            password: signInResponse?.data?.password,
+            role: signInResponse?.data?.role,
+            accessTokenVar: signInResponse?.tokens?.access_token,
+            refreshTokenVar: signInResponse?.tokens?.refresh_token,
+            isLoggedInVar: true,
+          });
+
+          // store the refresh token and access token on the storage
+          sessionStorage.setItem(
+            "refreshToken",
+            signInResponse?.tokens?.refresh_token
+          );
+          sessionStorage.setItem("isLoggedIn", true);
+          // fetch ossc labour data
+          getOSSCLabourData({
+            variables: {
+              _eq: signInResponse?.data.id,
+            },
+            onError(error) {
+              toast.error(
+                handleErrorMessage(error, "Failed to fetch ossc info")
+              );
+            },
+            onCompleted(data) {
+              let osscData = data.registration_namespace?.labors[0];
+              osscDataVar(osscData);
+              navigate("/home");
+            },
+          });
+        },
+        onError(data) {
+          console.log(data);
+        },
+      })
+    );
   };
 
   return (

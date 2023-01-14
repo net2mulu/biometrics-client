@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import { userDatavar } from "../../apollo/store";
 
 const Home = () => {
+  const keys = Object.keys(userDatavar());
+  console.log(userDatavar());
   return (
-    <div>Home</div>
-  )
-}
+    <div className="bg-dark">
+      {keys.map((data, idx) => (
+        <p key={idx} className="text-red">
+          {data}: {userDatavar().id}
+        </p>
+      ))}
+    </div>
+  );
+};
 
-export default Home
+export default Home;
