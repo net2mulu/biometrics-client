@@ -5,6 +5,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 
 // dynamic imports
 import Login from "../pages/Auth/login";
+import Home from "../pages/Home";
 
 const RoutesList = () => {
   return (
@@ -12,11 +13,10 @@ const RoutesList = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Login />} />
       </Route>
+      <Route path="/home" element={<Home />} />
     </Routes>
   );
-  //   <Route path="/dashboard" element={<PrivateRoute />}>
-  //     <Route path="/dashboard" element={<Home />} />
-  //   </Route>,
+
   //   <Route path="/verify-users" element={<PrivateRoute />}>
   //     <Route path="/verify-users" element={<VerifyUsers />} />
   //   </Route>,
