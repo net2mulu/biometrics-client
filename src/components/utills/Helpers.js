@@ -66,7 +66,7 @@ export const handleErrorMessage = (error, defaultErrorMessage) => {
   if (error?.networkError) {
     return "Network error";
   } else if (error?.graphQLErrors) {
-    if(error?.graphQLErrors[0]?.extensions?.internal){
+    if (error?.graphQLErrors[0]?.extensions?.internal) {
       let { response } = error?.graphQLErrors[0]?.extensions?.internal;
       let { status } = response;
       if (HttpErrorCodes[status]) {
@@ -74,13 +74,11 @@ export const handleErrorMessage = (error, defaultErrorMessage) => {
       } else {
         return defaultErrorMessage;
       }
-
-    } else if(error?.graphQLErrors[0]?.extensions?.message){
-      return error?.graphQLErrors[0]?.extensions?.message
-    }
-    else{
+    } else if (error?.graphQLErrors[0]?.extensions?.message) {
+      return error?.graphQLErrors[0]?.extensions?.message;
+    } else {
       return defaultErrorMessage;
     }
-   
   }
 };
+
