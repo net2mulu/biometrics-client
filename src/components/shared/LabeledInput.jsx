@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 const LabeledInput = ({
   id,
@@ -6,7 +6,6 @@ const LabeledInput = ({
   etPhone,
   type,
   label,
-  handleChange,
   fieldValue,
   inputWidth,
   validationMessage,
@@ -16,17 +15,6 @@ const LabeledInput = ({
   maxDate,
 }) => {
   const [labelTrue, setLabelTrue] = useState(false);
-
-  const labelRef = useRef(null);
-  const inputRef = useRef(null);
-
-  // const validateInput = (e) => {
-  //     if (e.target.value !== "") {
-  //       labelRef.current.classList.add("bg-white");
-  //       inputRef.current.classList.add("bg-white", "border-primary");
-  //       inputRef.current.classList.remove("border-none");
-  //     }
-  //   };
 
   const validateInput = (e) => {
     if (e.target.value !== "") {
@@ -39,7 +27,6 @@ const LabeledInput = ({
     <div className={" " + (inputWidth ? inputWidth : "w-full")}>
       <div className="relative">
         <input
-          ref={inputRef}
           {...register}
           onBlur={validateInput}
           type={type}
@@ -57,7 +44,6 @@ const LabeledInput = ({
         />
 
         <label
-          ref={labelRef}
           htmlFor={id}
           className={`${etPhone ? "left-14" : "left-2"} ${
             labelTrue ? "-translate-y-4 top-2 text-sm" : ""

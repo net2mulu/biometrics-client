@@ -7,8 +7,9 @@ const AppLayout = ({ children }) => {
       <div className={` h-full `}>
         <SideBar />
       </div>
-      <NavBar />
-      {children}
+      <div className="w-full space-y-6 relative flex flex-col">
+        <NavBar /> {children}
+      </div>
     </div>
   );
 };

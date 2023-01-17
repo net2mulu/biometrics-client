@@ -110,6 +110,8 @@ const errorLink = onError(
             });
 
             return observable;
+            default :
+            
         }
       }
     }

@@ -1,8 +1,12 @@
+import { usePromiseTracker } from "react-promise-tracker";
+
 export default function FullPageLoader({ showLoader }) {
+  const { promiseInProgress } = usePromiseTracker();
+
   return (
     <>
-      {showLoader ? (
-        <div className="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-full justify-center items-center flex bg-lightBlue bg-opacity-50 rounded-2xl backdrop-blur revealAnimation">
+      {showLoader || promiseInProgress ? (
+        <div className="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-full justify-center items-center flex bg-white bg-opacity-50  backdrop-blur revealAnimation">
           <div className="relative  w-5/12 h-full py-4 flex justify-center">
             {/* <!-- Modal content --> */}
             <svg

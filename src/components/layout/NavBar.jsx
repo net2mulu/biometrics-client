@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import avatarImage from "../../assets/images/avatar2.png";
 import { CgProfile } from "react-icons/cg";
@@ -14,12 +13,8 @@ import {
 } from "..//../apollo/store";
 
 const NavBar = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const toggleMenu = () => {
-    setShowMenu((prev) => !prev);
-  };
 
   // logout
   const logout = (e) => {

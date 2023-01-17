@@ -5,7 +5,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 
 // dynamic imports
 import Login from "../pages/Auth/login";
-import Home from "../pages/Home";
+const Home = lazy(() => import("../pages/Home"));
 
 const RoutesList = () => {
   return (
