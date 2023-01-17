@@ -5,12 +5,15 @@ import App from "./App";
 import { ApolloProvider } from "@apollo/client";
 import client from "./apollo/client";
 import { BrowserRouter } from "react-router-dom";
+import { ModalProvider } from "./hooks/modalContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ApolloProvider client={client}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ModalProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ModalProvider>
   </ApolloProvider>
 );

@@ -13,8 +13,10 @@ import Button from "../../components/shared/Button";
 import { trackPromise } from "react-promise-tracker";
 import ResultNotFound from "../../components/home/ResultNotFound";
 import Result from "../../components/home/Result";
+import Modal from "../../components/utills/Modal";
 
 const Home = () => {
+  const [modalOpened, setModalOpened] = useState();
   const navigate = useNavigate();
 
   // state variable
@@ -27,22 +29,21 @@ const Home = () => {
   );
 
   const handleSearch = (e) => {
-    trackPromise(
-      getLabourByBiometricsId({
-        variables: {
-          _eq: biometricsId?.toString(),
-        },
-        onCompleted(data) {
-          setResult(true);
-
-          // set selected labour data
-          labourDatavar(data?.registration_namespace?.labors[0]);
-        },
-        onError(data) {
-          console.log(data);
-        },
-      })
-    );
+    if (biometricsId) {
+      trackPromise(
+        getLabourByBiometricsId({
+          variables: {
+            _eq: biometricsId ? biometricsId : null,
+          },
+          onCompleted(data) {
+            setResult(true);
+            // set selected labour data
+            labourDatavar(data?.registration_namespace?.labors[0]);
+          },
+          onError(data) {},
+        })
+      );
+    }
   };
 
   const gotoBiometrics = () => {
@@ -65,6 +66,7 @@ const Home = () => {
 
   return (
     <>
+      {modalOpened === "photo" && <Modal setOpened={setModalOpened} />}
       <div
         className={`body-height py-6 z-20 bg-white rounded-2xl shadow-custom`}
       >
@@ -93,6 +95,7 @@ const Home = () => {
                     labourData={labourData}
                     gotoBiometrics={gotoBiometrics}
                     setResult={setResult}
+                    setModalOpened={setModalOpened}
                   />
                 ) : (
                   <ResultNotFound setResult={setResult} />

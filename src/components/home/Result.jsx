@@ -1,9 +1,12 @@
-import React from 'react'
+import  { useContext } from 'react'
 import { AiFillPlusSquare, AiOutlineClose } from 'react-icons/ai'
 import avatarImage from "../../assets/images/avatar2.png";
+import { ModalContext } from '../../hooks/modalContext';
 import Button from '../shared/Button';
+import PhotoViewModal from './PhotoViewModal';
 
-const Result = ({setResult, gotoBiometrics, labourData}) => {
+const Result = ({setResult, gotoBiometrics, labourData, setModalOpened}) => {
+  let { handleModal } = useContext(ModalContext)
   return (
     <>
     <AiOutlineClose
@@ -24,6 +27,9 @@ const Result = ({setResult, gotoBiometrics, labourData}) => {
           className="border12 rounded-full"
           width={60}
           height={60}
+          onClick={() => handleModal(<PhotoViewModal photo={ process.env.REACT_APP_MEDIA_SERVICE +
+            labourData.registration_namespace?.labors[0]
+              ?.profile_picture} />)}
         />
       ) : (
         <img

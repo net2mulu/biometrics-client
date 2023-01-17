@@ -38,7 +38,7 @@ export const SIGN_IN = gql`
 
 // find labour  by biometrics id
 export const LABOR_BY_BIOMETRICS_ID = gql`
-  query MyQuery($_eq: String = "") {
+  query LABOR_BY_BIOMETRICS_ID($_eq: String = "") {
     registration_namespace {
       labors(where: { biometrics_id: { _eq: $_eq } }) {
         id

@@ -39,7 +39,6 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     trackPromise(
       signIn({
         variables: {
@@ -47,7 +46,6 @@ const Login = () => {
           password: data.password,
         },
         onCompleted(res) {
-          console.log(res)
           let signInResponse = res?.signIn;
 
           // set access token, refresh token and user data
@@ -86,7 +84,7 @@ const Login = () => {
           });
         },
         onError(data) {
-          console.log(data);
+          
         },
       })
     );
