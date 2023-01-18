@@ -13,10 +13,8 @@ import Button from "../../components/shared/Button";
 import { trackPromise } from "react-promise-tracker";
 import ResultNotFound from "../../components/home/ResultNotFound";
 import Result from "../../components/home/Result";
-import Modal from "../../components/utills/Modal";
 
 const Home = () => {
-  const [modalOpened, setModalOpened] = useState();
   const navigate = useNavigate();
 
   // state variable
@@ -52,7 +50,7 @@ const Home = () => {
     //   // since we are also trying to send an id to the server on the next path(/biometrics), having this is causing some errors like websocket is on closing state
     //   // ws.close();
     // }
-    navigate("/biometric");
+    navigate("/biometrics-home");
   };
 
   // functio that runs  when a key is pressed
@@ -66,7 +64,7 @@ const Home = () => {
 
   return (
     <>
-      {modalOpened === "photo" && <Modal setOpened={setModalOpened} />}
+     
       <div
         className={`body-height py-6 z-20 bg-white rounded-2xl shadow-custom`}
       >
@@ -95,7 +93,6 @@ const Home = () => {
                     labourData={labourData}
                     gotoBiometrics={gotoBiometrics}
                     setResult={setResult}
-                    setModalOpened={setModalOpened}
                   />
                 ) : (
                   <ResultNotFound setResult={setResult} />

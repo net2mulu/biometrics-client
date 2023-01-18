@@ -25,3 +25,16 @@ export const OSSC_LABOUR_DATA_RID = gql`
     }
   }
 `;
+
+export const GET_LABOR_BIOMETRIC_DATA = gql`
+  query LABOR_BIOMETRIC_DATA($id: registration_uuid = "") {
+    registration_namespace {
+      labors_by_pk(id: $id) {
+        biometrics_id
+        iris_completed
+        fingerprint_completed
+        face_completed
+      }
+    }
+  }
+`;

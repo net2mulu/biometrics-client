@@ -5,6 +5,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 
 // dynamic imports
 import Login from "../pages/Auth/login";
+import BiometricsHome from "../pages/Biometrics/BiometricsHome";
 const Home = lazy(() => import("../pages/Home"));
 
 const RoutesList = () => {
@@ -16,6 +17,9 @@ const RoutesList = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/home" element={<Home />} />
       </Route>
+      <Route element={<PrivateRoute />}>
+        <Route path="/biometrics-home" element={<BiometricsHome />} />
+      </Route>
     </Routes>
   );
 
@@ -23,9 +27,6 @@ const RoutesList = () => {
   //     <Route path="/verify-users" element={<VerifyUsers />} />
   //   </Route>,
 
-  //   <Route path="/biometric" element={<PrivateRoute />}>
-  //     <Route path="/biometric" element={<Biometric />} />
-  //   </Route>,
   //   <Route path="/fingerprint" element={<PrivateRoute />}>
   //     <Route path="/fingerprint" element={<Fingerprint />} />
   //   </Route>,
