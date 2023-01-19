@@ -7,6 +7,7 @@ import client from "./apollo/client";
 import { BrowserRouter } from "react-router-dom";
 import { ModalProvider } from "./hooks/modalContext";
 import { ServerProvider } from "./context/ServerContext";
+import { Toaster } from "react-hot-toast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +15,7 @@ root.render(
     <ServerProvider>
       <ModalProvider>
         <BrowserRouter>
+          <Toaster position="bottom-center" />
           <App />
         </BrowserRouter>
       </ModalProvider>

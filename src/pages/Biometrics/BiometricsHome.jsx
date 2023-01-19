@@ -50,23 +50,27 @@ const BiometricsHome = () => {
 
   return (
     <>
-      <div className="h-full w-full flex flex-col justify-between">
-        <StatusNotification />
-        <div className="w-3/5 h-biometric">
-          {/* labor status */}
-          <LaborStatus laborBiometricsStatus={laborBiometricsStatus} />
-          {/* reg steps */}
-          <RegistrationSteps laborBiometricsStatus={laborBiometricsStatus} />
-        </div>
-        {/* Links section */}
-        <div className="bg-gradient-to-br to-prime20 from-prime10 h-20 3xl:h-full w-full rounded-b-2xl -mt-16">
-          <div className="flex w-[67%] items-start justify-around -translate-y-[50%] 3xl:-translate-y-1/3">
-            {/* face  */}
-            <FaceScanLink laborBiometricsStatus={laborBiometricsStatus} />
-            {/* iris */}
-            <IrisLink laborBiometricsStatus={laborBiometricsStatus} />
-            {/* finger print */}
-            <FingerPrintLink laborBiometricsStatus={laborBiometricsStatus} />
+      <div
+        className="body-height z-20 bg-white rounded-2xl shadow-custom"
+      >
+        <div className="h-full w-full flex flex-col justify-between">
+          <StatusNotification />
+          <div className="w-3/5 h-biometric">
+            {/* labor status */}
+            <LaborStatus laborBiometricsStatus={laborBiometricsStatus} />
+            {/* reg steps */}
+            <RegistrationSteps laborBiometricsStatus={laborBiometricsStatus} />
+          </div>
+          {/* Links section */}
+          <div className="bg-gradient-to-br to-prime20 from-prime10 h-20 3xl:h-full w-full rounded-b-2xl -mt-16">
+            <div className="flex w-[67%] items-start justify-around -translate-y-[50%] 3xl:-translate-y-1/3">
+              {/* face  */}
+              <FaceScanLink laborBiometricsStatus={laborBiometricsStatus} />
+              {/* iris */}
+              <IrisLink laborBiometricsStatus={laborBiometricsStatus} />
+              {/* finger print */}
+              <FingerPrintLink laborBiometricsStatus={laborBiometricsStatus} />
+            </div>
           </div>
         </div>
       </div>

@@ -41,7 +41,7 @@ const SideBar = () => {
         <ul className="flex flex-col space-y-4 sidebar-height capitalize text-white/80">
           <li
             className="flex space-x-4 items-center rounded cursor-pointer  min-w-min px-4 py-2 font-semibold "
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/home")}
           >
             <MdDashboard
               className={`text-2xl p-2 rounded-md bg-white text-prime10 ${
@@ -52,7 +52,7 @@ const SideBar = () => {
               className={`${!open && "hidden"} transition
            duration-200 ease-in-out text-white`}
             >
-              dashboard
+              Home
             </p>
           </li>
           <li

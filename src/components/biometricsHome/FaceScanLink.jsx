@@ -18,7 +18,7 @@ const FaceScanLink = ({laborBiometricsStatus}) => {
     } py-4 3xl:py-8 3xl:px-16 px-8 relative text-primary font-semibold rounded-md shadow-custom flex  flex-col items-center justify-center cursor-pointer`}
     onClick={() =>
       status && !laborBiometricsStatus.face_completed
-        ? navigate("/face-home")
+        ? navigate("/face-setting")
         : laborBiometricsStatus.face_completed
         ? toast.error("The labor is already registered by face!", {
             position: "top-left",

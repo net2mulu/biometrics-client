@@ -1,5 +1,6 @@
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Suspense, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
 import { REFRESH_TOKEN } from "./apollo/mutation";
 import { OSSC_LABOUR_DATA_RID } from "./apollo/query";
@@ -9,7 +10,8 @@ import FullPageLoader from "./components/shared/FullPageLoader";
 import RoutesList from "./routes";
 
 function App() {
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
+
   // mutation
   const [updateRefreshToken, { loading: refreshTokenLoading }] =
     useMutation(REFRESH_TOKEN);
@@ -155,9 +157,13 @@ function App() {
       ) : (
         <Suspense fallback={<FullPageLoader showLoader={true} />}>
           <FullPageLoader />
-          <AppLayout>
+          {pathname === "/" ? (
             <RoutesList />
-          </AppLayout>
+          ) : (
+            <AppLayout>
+              <RoutesList />
+            </AppLayout>
+          )}
         </Suspense>
       )}
     </>

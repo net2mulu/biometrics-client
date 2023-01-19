@@ -64,7 +64,6 @@ const Home = () => {
 
   return (
     <>
-     
       <div
         className={`body-height py-6 z-20 bg-white rounded-2xl shadow-custom`}
       >

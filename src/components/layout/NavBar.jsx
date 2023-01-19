@@ -33,7 +33,7 @@ const NavBar = () => {
   };
   return (
     <div
-      className={`h-28 w-full  shadow-sm before:h-12 sticky top-4 before:w-full  before:bg-white
+      className={`h-28 w-full  shadow-sm before:h-12 sticky top-4 before:w-full  before:bg-darkBlue/0
        before:-top-8 before:z-0 before:absolute  z-40 bg-white rounded-2xl shadow-custom bg-yellow-600`}
     >
       <div className="h-full z-20 relative">

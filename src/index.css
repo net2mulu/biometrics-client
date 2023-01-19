@@ -481,3 +481,8 @@
     margin: 0;
   }
 }
+
+.minfour {
+  /* Subtract 80px from 100vh */
+  height: calc(100vh - 16px);
+}
