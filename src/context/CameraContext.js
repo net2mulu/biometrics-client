@@ -43,7 +43,6 @@ export const CameraProvider = ({ children }) => {
           id: mediaDevice.deviceId,
         });
       }
-      console.log(deviceList);
       setDevices(deviceList);
     });
   };
@@ -95,7 +94,6 @@ export const CameraProvider = ({ children }) => {
     photo.getContext("2d").drawImage(video, 0, 0, photo.width, photo.height);
     let image_data_url = photo.toDataURL();
 
-    console.log("ck", image_data_url);
     // data url of the image
     if (captureMode === "left") {
       setLeftFace(image_data_url);

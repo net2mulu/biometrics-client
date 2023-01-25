@@ -1,10 +1,12 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { BsChevronRight } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import React from "react";
+import { labourDatavar } from "../../apollo/store";
 
 const BreadCrumb = () => {
   const navigate = useNavigate();
+  console.log(labourDatavar())
 
   const breadCrumpData = [
     {
@@ -13,12 +15,12 @@ const BreadCrumb = () => {
       isHome: true,
     },
     {
-      label: "Maritu Legesse",
-      link: "/",
+      label: labourDatavar().first_name+" "+labourDatavar().father_name,
+      link: "/biometrics-home",
     },
     {
       label: "Face Capture",
-      link: "/",
+      link: "/face-scan",
     },
   ];
   return (

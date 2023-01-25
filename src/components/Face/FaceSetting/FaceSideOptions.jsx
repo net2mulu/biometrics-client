@@ -14,8 +14,6 @@ import CameraContext from "../../../context/CameraContext";
 
 const FaceSideOptions = () => {
   const { devices, setSelectedDevice } = useContext(CameraContext);
-  console.log(devices);
-
   const [showcameraSelector, setShowCameraSelector] = useState(false);
 
   const toggleCameraSelector = () => {
