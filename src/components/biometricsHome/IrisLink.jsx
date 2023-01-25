@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ServerContext from "../../context/ServerContext";
-import IrisImage from "../../assets/images/iris.svg";
+import IrisImage from "../../assets/svgs/iris.svg";
 
 const IrisLink = ({ laborBiometricsStatus }) => {
   const { status, fpMachineStatus } = useContext(ServerContext);

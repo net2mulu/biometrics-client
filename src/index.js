@@ -8,17 +8,20 @@ import { BrowserRouter } from "react-router-dom";
 import { ModalProvider } from "./hooks/modalContext";
 import { ServerProvider } from "./context/ServerContext";
 import { Toaster } from "react-hot-toast";
+import { CameraProvider } from "./context/CameraContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ApolloProvider client={client}>
     <ServerProvider>
-      <ModalProvider>
-        <BrowserRouter>
-          <Toaster position="bottom-center" />
-          <App />
-        </BrowserRouter>
-      </ModalProvider>
+      <CameraProvider>
+        <ModalProvider>
+          <BrowserRouter>
+            <Toaster position="bottom-center" />
+            <App />
+          </BrowserRouter>
+        </ModalProvider>
+      </CameraProvider>
     </ServerProvider>
   </ApolloProvider>
 );

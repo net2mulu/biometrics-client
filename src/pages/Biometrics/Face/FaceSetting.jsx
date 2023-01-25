@@ -1,7 +1,7 @@
-import FaceCaptureDescription from "../../../components/Face/FaceScan/FaceCaptureDescription";
-import FaceCaptureGuide from "../../../components/Face/FaceScan/FaceCaptureGuide";
 import BreadCrumb from "../../../components/shared/BreadCrumb";
-import FaceSideOptions from "./FaceSideOptions";
+import FaceCaptureDescription from "../../../components/Face/FaceSetting/FaceCaptureDescription";
+import FaceCaptureGuide from "../../../components/Face/FaceSetting/FaceCaptureGuide";
+import FaceSideOptions from "../../../components/Face/FaceSetting/FaceSideOptions";
 
 const FaceSetting = () => {
   return (

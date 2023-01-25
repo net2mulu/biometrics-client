@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import FaceImage from "../../assets/images/face.svg";
+import FaceImage from "../../assets/svgs/face.svg";
 import ServerContext from "../../context/ServerContext";
 
 const FaceScanLink = ({laborBiometricsStatus}) => {

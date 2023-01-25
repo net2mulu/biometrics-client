@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import NetworkImage from "../../assets/images/network.svg";
+import NetworkImage from "../../assets/svgs/network.svg";
 import ServerContext from "../../context/ServerContext";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoIosCloseCircle, IoIosCheckmarkCircle } from "react-icons/io";

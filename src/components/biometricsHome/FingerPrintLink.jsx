@@ -2,7 +2,7 @@ import  { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ServerContext from "../../context/ServerContext";
-import FingerPrintImage from "../../assets/images/fingerprint.svg";
+import FingerPrintImage from "../../assets/svgs/fingerprint.svg";
 
 const FingerPrintLink = ({ type, laborBiometricsStatus, image, term }) => {
   const { status, fpMachineStatus } = useContext(ServerContext);

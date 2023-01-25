@@ -7,7 +7,7 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import Button from "../../components/shared/Button";
 import LabeledInput from "../../components/shared/LabeledInput";
 // asset imports
-import LogoPrimary from "../../assets/images/logo-primary.svg";
+import LogoPrimary from "../../assets/svgs/logo-primary.svg";
 import molsImage from "../../assets/images/mols.png";
 //apollo related imports
 import { SIGN_IN } from "../../apollo/mutation";

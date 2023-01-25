@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="73" height="73.071" viewBox="0 0 73 73.071">
+  <g id="Face-Scan" transform="translate(-1104 -358.754)">
+    <path id="Path_7" data-name="Path 7" d="M1043.373,400.329s-2.709-11.474,23.427-13.227c6.853-1.275,12.909-10.2,12.909-10.2s7.968,4.94,8.128,24.224c.319.478,7.49,0,7.49,0s4.144-35.7-15.618-36.017c-.478,0-6.534-10.518-29.323-2.072-.319.159-18.008,3.984-14.98,38.089.478.319,7.968,0,7.968,0Z" transform="translate(74.944 -1)" fill="#fff"/>
+    <rect id="Rectangle_4" data-name="Rectangle 4" width="73" height="6" rx="3" transform="translate(1104 400)" fill="#fff"/>
+    <g id="Group_1" data-name="Group 1" transform="translate(21 -29)">
+      <circle id="Ellipse_1" data-name="Ellipse 1" cx="4.5" cy="4.5" r="4.5" transform="translate(1103 425)" fill="#fff"/>
+      <circle id="Ellipse_2" data-name="Ellipse 2" cx="4.5" cy="4.5" r="4.5" transform="translate(1128 425)" fill="#fff"/>
+    </g>
+    <path id="Path_9" data-name="Path 9" d="M1046.445,412.467s18.011,30.553,38.191,0c-.094-.094,7.638,0,7.638,0s-8.864,18.483-26.121,19.331-26.5-19.331-26.5-19.331Z" transform="translate(74.345)" fill="#fff"/>
+  </g>
+</svg>

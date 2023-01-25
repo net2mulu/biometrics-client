@@ -1,24 +1,33 @@
-import  { useState } from 'react'
+import { useContext, useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FiSettings } from "react-icons/fi";
 import { HiOutlineLogout } from "react-icons/hi";
 import { AiFillCamera } from "react-icons/ai";
 import { BiCameraHome } from "react-icons/bi";
 //assets
-import FrontFace from "../../../assets/images/FrontFace.svg";
-import RightFace from "../../../assets/images/RightFace.svg";
-import LeftFace from "../../../assets/images/LeftFace.svg";
-import ResetIcon from "../../../assets/images/FaceResetIcon.svg";
-import ProfilePicture from "../../../assets/images/AbebeFace.svg";
+import FrontFace from "../../../assets/svgs/FrontFace.svg";
+import RightFace from "../../../assets/svgs/RightFace.svg";
+import LeftFace from "../../../assets/svgs/LeftFace.svg";
+import ResetIcon from "../../../assets/svgs/FaceResetIcon.svg";
+import ProfilePicture from "../../../assets/svgs/AbebeFace.svg";
+import CameraContext from "../../../context/CameraContext";
 
-const FaceSideOptions = ({ devices, setSelectedDevice }) => {
+const FaceSideOptions = () => {
+  const { devices, setSelectedDevice } = useContext(CameraContext);
+  console.log(devices);
+
   const [showcameraSelector, setShowCameraSelector] = useState(false);
 
   const toggleCameraSelector = () => {
     setShowCameraSelector(!showcameraSelector);
   };
+
+  useEffect(() => {
+    console.log(showcameraSelector);
+  }, [showcameraSelector]);
+
   return (
-    <div className="rounded-2xl flex flex-col shadow-lg items-center justify-between w-full h-full bg-white">
+    <div className="rounded-2xl flex flex-col shadow-lg items-center justify-between w-full  bg-white">
       <div className="px-4">
         <div className="w-full flex justify-center items-center py-4 2xl:py-8 border-b border-b-N99">
           <div className="group relative z-50 ">
@@ -47,18 +56,18 @@ const FaceSideOptions = ({ devices, setSelectedDevice }) => {
         </div>
       </div>
 
-      <div className="h-[60%] flex flex-col w-full justify-between items-center pt-4">
+      <div className="h-[60%] flex flex-col w-full justify-between items-center pt-4 ">
         {devices && (
-          <div className="flex relative flex-col items-center space-y-2 text-xs 2xl:text-xs font-medium text-prime70">
+          <div className="group flex relative flex-col items-center space-y-2 text-xs 2xl:text-xs font-medium text-prime70">
             <AiFillCamera
               onClick={toggleCameraSelector}
               className="text-white bg-green p-2 text-[2.5rem] cursor-pointer rounded-full"
             />
             <p>Camera</p>
             <div
-              className={`absolute top-[50%] right-full rounded-md overflow-hidden   z-40 transition-all duration-300 ease-out camera-selector bg-slate-100 shadow-custom w-max text-prime20 font-medium ${
+              className={`absolute top-[50%]  right-full rounded-md overflow-hidden z-40 transition-all duration-300 ease-out camera-selector bg-slate-100 shadow-custom w-max text-prime20 font-medium ${
                 !showcameraSelector ? "opacity-0 invisible " : ""
-              }`}
+              } `}
             >
               {devices.map((device) => (
                 <p
@@ -133,7 +142,7 @@ const FaceSideOptions = ({ devices, setSelectedDevice }) => {
         </svg>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FaceSideOptions
+export default FaceSideOptions;

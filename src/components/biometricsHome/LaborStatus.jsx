@@ -1,6 +1,6 @@
 import avatarImage from "../../assets/images/avatar2.png";
-import dbAcceptIcon from "../../assets/images/db.svg";
-import biometricsIcon from "../../assets/images/bio.svg";
+import dbAcceptIcon from "../../assets/svgs/db.svg";
+import biometricsIcon from "../../assets/svgs/bio.svg";
 import { labourDatavar } from '../../apollo/store'
 
 const LaborStatus = ({laborBiometricsStatus}) => {

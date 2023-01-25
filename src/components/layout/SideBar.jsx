@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import simpleLogo from "../../assets/images/logo-simple.svg";
+import simpleLogo from "../../assets/svgs/logo-simple.svg";
 import { MdDashboard } from "react-icons/md";
 import { BsCaretLeftFill } from "react-icons/bs";
 import { AiOutlineScan } from "react-icons/ai";

@@ -7,7 +7,7 @@ import { LABOR_BY_BIOMETRICS_ID } from "../../apollo/mutation";
 //icons
 import { FaSearch } from "react-icons/fa";
 //assets
-import folderImage from "../../assets/images/folder.svg";
+import folderImage from "../../assets/svgs/folder.svg";
 //components
 import Button from "../../components/shared/Button";
 import { trackPromise } from "react-promise-tracker";

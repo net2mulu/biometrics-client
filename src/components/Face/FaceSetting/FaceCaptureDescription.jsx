@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { BsCameraFill, BsFillCloudDownloadFill } from "react-icons/bs";
 import { BiCheck } from "react-icons/bi";
-import FaceRegistrationAmico from "../../../assets/images/FaceRegistrationAmico.svg";
+import FaceRegistrationAmico from "../../../assets/svgs/FaceRegistrationAmico.svg";
 
-const FaceCaptureDescription = ({  route, msg, disabled }) => {
+const FaceCaptureDescription = ({ disabled }) => {
   const navigate = useNavigate();
   // const { ws } = useContext(ServerContext);
 
   const handleStart = () => {
     // ws.send(msg);
-    navigate(route);
+    navigate("/face-scan");
   };
   return (
     <div className="bg-white w-full px-4 py-4 flex justify-between items-center rounded-lg shadow-lg">
@@ -70,7 +70,9 @@ const FaceCaptureDescription = ({  route, msg, disabled }) => {
           user.
         </p>
         <button
-          className={`${disabled ? 'bg-primary/25': 'bg-primary hover:bg-prime30'}  text-white font-medium px-10 py-1.5 rounded cursor-pointer  }`}
+          className={`${
+            disabled ? "bg-primary/25" : "bg-primary hover:bg-prime30"
+          }  text-white font-medium px-10 py-1.5 rounded cursor-pointer  }`}
           disabled={disabled}
           onClick={() => handleStart()}
         >
