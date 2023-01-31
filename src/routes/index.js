@@ -5,10 +5,16 @@ import { ProtectedRoute } from "./ProtectedRoute";
 
 // dynamic imports
 import Login from "../pages/Auth/login";
+const LaborRegistration = lazy(() => import("../pages/LaborRegistrationForm"));
+const LaborVerification = lazy(() => import("../pages/LaborVerification"));
 const Home = lazy(() => import("../pages/Home"));
 const BiometricsHome = lazy(() => import("../pages/Biometrics/BiometricsHome"));
+//face
 const FaceSetting = lazy(() => import("../pages/Biometrics/Face/FaceSetting"));
 const FaceScan = lazy(() => import("../pages/Biometrics/Face/FaceScan"));
+//iris
+const IrisSetting = lazy(() => import("../pages/Biometrics/Iris/IrisSetting"));
+const IrisScan = lazy(() => import("../pages/Biometrics/Iris/IrisScan"));
 
 const RoutesList = () => {
   return (
@@ -22,11 +28,25 @@ const RoutesList = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/biometrics-home" element={<BiometricsHome />} />
       </Route>
+      {/* Face */}
       <Route element={<PrivateRoute />}>
         <Route path="/face-setting" element={<FaceSetting />} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path="/face-scan" element={<FaceScan />} />
+      </Route>
+      {/* Iris */}
+      <Route element={<PrivateRoute />}>
+        <Route path="/iris-setting" element={<IrisSetting />} />
+      </Route>
+      <Route element={<PrivateRoute />}>
+        <Route path="/iris-scan" element={<IrisScan />} />
+      </Route>
+      <Route element={<PrivateRoute />}>
+        <Route path="/labor-registration" element={<LaborRegistration />} />
+      </Route>
+      <Route element={<PrivateRoute />}>
+        <Route path="/labor-verification" element={<LaborVerification />} />
       </Route>
     </Routes>
   );

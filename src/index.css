@@ -486,3 +486,8 @@
   /* Subtract 80px from 100vh */
   height: calc(100vh - 16px);
 }
+
+.flipped {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}

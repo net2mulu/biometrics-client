@@ -1,6 +1,7 @@
 import { CameraProvider } from "../../context/CameraContext";
 import BreadCrumb from "../shared/BreadCrumb";
-import FaceSideOptions from "./FaceSetting/FaceSideOptions";
+import SideOptions from "../shared/SideOptions";
+import FaceSideOptions from "./FaceSideOptions";
 
 const FaceLayout = ({ children }) => {
   return (
@@ -15,7 +16,9 @@ const FaceLayout = ({ children }) => {
         </div>
 
         <div className="min-w-[6rem]">
-          <FaceSideOptions />
+          <SideOptions>
+            <FaceSideOptions />
+          </SideOptions>
         </div>
       </div>
     </CameraProvider>

@@ -1,10 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { BsChevronRight } from "react-icons/bs";
 import { labourDatavar } from "../../apollo/store";
 
 const BreadCrumb = () => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   console.log(labourDatavar())
 
@@ -19,8 +20,8 @@ const BreadCrumb = () => {
       link: "/biometrics-home",
     },
     {
-      label: "Face Capture",
-      link: "/face-scan",
+      label: pathname.substring(1),
+      link: pathname,
     },
   ];
   return (

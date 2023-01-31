@@ -1,42 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import FaceHologram from "../../../assets/images/Group.png";
 import CameraContext from "../../../context/CameraContext";
-import * as facemesh from "@tensorflow-models/face-landmarks-detection";
-import { drawMesh } from "./utill";
 
 const FaceStream = () => {
-  const {
-    feedRef,
-    captureMode,
-    imageRef,
-    feedWidth,
-    feedHeight,
-    currentStream,
-  } = useContext(CameraContext);
-
-  //  Load posenet
-  const runFacemesh = async () => {
-    const net = await facemesh.load(
-      facemesh.SupportedPackages.mediapipeFacemesh
-    );
-    setInterval(() => {
-      detect(net);
-    }, 10);
-  };
-
-  const detect = async (net) => {
-    if (typeof feedRef.current !== "undefined") {
-      const face = await net.estimateFaces({ input: feedRef.current });
-      const ctx = imageRef.current.getContext("2d");
-      requestAnimationFrame(() => {
-        drawMesh(face, ctx);
-      });
-    }
-  };
-
-  useEffect(() => {
-    runFacemesh();
-  }, []);
+  const { feedRef, captureMode, imageRef, feedWidth, feedHeight } =
+    useContext(CameraContext);
 
   return (
     <div className="relative flex justify-center w-full items-center">

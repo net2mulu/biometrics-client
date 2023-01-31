@@ -95,6 +95,7 @@ export const ServerProvider = ({ children }) => {
     };
 
     ws.onmessage = (msg) => {
+      console.log(msg.data)
       if (checkJson(msg.data)) {
         JSON.parse(msg.data, function (key, value) {
           if (key === "left") {

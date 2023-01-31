@@ -9,9 +9,9 @@ const AppLayout = ({ children }) => {
   const navigate = useNavigate();
 
   //paths to re-route
-  const allowed = ["/home", "/biometrics-home", "/face-setting"];
+  const allowed = ["/home", "/biometrics-home", "/face-setting", "/face-scan", "/iris-scan"];
 
-  const notAllowedNav = ["/face-setting","/face-scan"];
+  const notAllowedNav = ["/face-setting", "/face-scan", "/iris-setting", "/iris-scan"];
 
   useEffect(() => {
     if (!allowed.includes(pathname) || !labourDatavar()) {

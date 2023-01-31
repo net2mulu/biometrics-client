@@ -73,7 +73,7 @@ const SideBar = () => {
           </li>
           <li
             className="cursor-pointer text-sm rounded flex space-x-4 items-center min-w-max px-4 py-2   transition-all duration-200"
-            onClick={() => navigate("/verify-users")}
+            onClick={() => navigate("/labor-verification")}
           >
             <AiOutlineScan
               className={`text-2xl rounded-md hover:bg-prime10/25 transition duration-200 ease-in p-2 hover:text-white text-white ${

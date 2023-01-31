@@ -52,8 +52,8 @@ export const CameraProvider = ({ children }) => {
       stopMediaTracks(currentStream);
     }
     const videoConstraints = {
-      width: { min: 1024, ideal: 3264, max: 3450 },
-      height: { min: 576, ideal: 2448, max: 2600 },
+      width: { min: 1024, ideal: 1920, max: 3450 },
+      height: { min: 576, ideal: 1080, max: 2600 },
     };
     if (SelectedDevice === null) {
       videoConstraints.facingMode = "environment";
@@ -93,7 +93,7 @@ export const CameraProvider = ({ children }) => {
 
     photo.getContext("2d").drawImage(video, 0, 0, photo.width, photo.height);
     let image_data_url = photo.toDataURL();
-
+    console.log(image_data_url);
     // data url of the image
     if (captureMode === "left") {
       setLeftFace(image_data_url);
