@@ -15,6 +15,7 @@ module.exports = {
       "4xl": "1700px",
     },
     extend: {
+      display: ["group-hover"],
       fontSize: {
         xs: ".75rem",
         sm: ".875rem",

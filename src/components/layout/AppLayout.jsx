@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { labourDatavar } from "../../apollo/store";
+import  { CameraProvider } from "../../context/CameraContext";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 
@@ -9,9 +10,20 @@ const AppLayout = ({ children }) => {
   const navigate = useNavigate();
 
   //paths to re-route
-  const allowed = ["/home", "/biometrics-home", "/face-setting", "/face-scan", "/iris-scan"];
+  const allowed = [
+    "/home",
+    "/biometrics-home",
+    "/face-setting",
+    "/face-scan",
+    "/iris-scan",
+  ];
 
-  const notAllowedNav = ["/face-setting", "/face-scan", "/iris-setting", "/iris-scan"];
+  const notAllowedNav = [
+    "/face-setting",
+    "/face-scan",
+    "/iris-setting",
+    "/iris-scan",
+  ];
 
   useEffect(() => {
     if (!allowed.includes(pathname) || !labourDatavar()) {
@@ -25,14 +37,16 @@ const AppLayout = ({ children }) => {
   };
 
   return (
-    <div className="bg-blue-200/20 flex space-x-6 p-4 h-screen">
-      <div className="h-full">
-        <SideBar />
+    <CameraProvider>
+      <div className="bg-blue-200/20 flex space-x-6 p-4 h-screen">
+        <div className="h-full">
+          <SideBar />
+        </div>
+        <div className="w-full space-y-6 relative flex flex-col">
+          {!notAllowedNav.includes(pathname) && <NavBar />} {children}
+        </div>
       </div>
-      <div className="w-full space-y-6 relative flex flex-col">
-        {!notAllowedNav.includes(pathname) && <NavBar />} {children}
-      </div>
-    </div>
+    </CameraProvider>
   );
 };
 

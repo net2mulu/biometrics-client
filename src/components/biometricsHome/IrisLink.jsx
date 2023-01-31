@@ -5,14 +5,15 @@ import ServerContext from "../../context/ServerContext";
 import IrisImage from "../../assets/svgs/iris.svg";
 
 const IrisLink = ({ laborBiometricsStatus }) => {
-  const { status, fpMachineStatus } = useContext(ServerContext);
+  const { status, irisMachineStatus } = useContext(ServerContext);
+  console.log(irisMachineStatus);
   const navigate = useNavigate();
 
   return (
     <div
       className={`bg-white ${
         !status ||
-        fpMachineStatus !== "fpon" ||
+        irisMachineStatus !== "iris_on" ||
         laborBiometricsStatus.iris_completed
           ? "disconnected"
           : ""
@@ -24,7 +25,7 @@ const IrisLink = ({ laborBiometricsStatus }) => {
           ? toast.error("The labor is already registered by Iris!", {
               position: "top-left",
             })
-          : fpMachineStatus !== "fpon" &&
+          : irisMachineStatus !== "iris_on" &&
             toast.error("Iris Machine is not working!", {
               position: "top-left",
             })
@@ -39,7 +40,7 @@ const IrisLink = ({ laborBiometricsStatus }) => {
         alt="Iris"
         className={`${
           !status ||
-          fpMachineStatus !== "fpon" ||
+          irisMachineStatus !== "iris_on" ||
           laborBiometricsStatus.iris_completed
             ? "opacity-20"
             : ""
@@ -48,7 +49,7 @@ const IrisLink = ({ laborBiometricsStatus }) => {
       <h3
         className={`${
           !status ||
-          fpMachineStatus !== "fpon" ||
+          irisMachineStatus !== "iris_on" ||
           laborBiometricsStatus.iris_completed
             ? "text-gray"
             : ""

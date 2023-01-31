@@ -5,9 +5,10 @@ import { BsChevronRight } from "react-icons/bs";
 import { labourDatavar } from "../../apollo/store";
 
 const BreadCrumb = () => {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  
+console.log(location);
   const navigate = useNavigate();
-  console.log(labourDatavar())
 
   const breadCrumpData = [
     {
@@ -16,12 +17,12 @@ const BreadCrumb = () => {
       isHome: true,
     },
     {
-      label: labourDatavar().first_name+" "+labourDatavar().father_name,
+      label: labourDatavar() ? labourDatavar().first_name+" "+labourDatavar().father_name : "",
       link: "/biometrics-home",
     },
     {
-      label: pathname.substring(1),
-      link: pathname,
+      label: location.pathname.substring(1),
+      link: location.pathname,
     },
   ];
   return (

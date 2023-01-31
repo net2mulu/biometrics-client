@@ -12,6 +12,7 @@ import IrisLink from "../../components/biometricsHome/IrisLink";
 import FaceScanLink from "../../components/biometricsHome/FaceScanLink";
 import RegistrationSteps from "../../components/biometricsHome/RegistrationSteps";
 import LaborStatus from "../../components/biometricsHome/LaborStatus";
+import CameraContext from "../../context/CameraContext";
 
 const BiometricsHome = () => {
   const [laborBiometricsStatus, setLaborBiometricsStatus] = useState({
@@ -38,6 +39,8 @@ const BiometricsHome = () => {
   });
 
   const { status, ws } = useContext(ServerContext);
+  const { devices } = useContext(CameraContext);
+  console.log(devices.length);
 
   // to send labor id to the server by looking at status
   useEffect(() => {
@@ -50,9 +53,7 @@ const BiometricsHome = () => {
 
   return (
     <>
-      <div
-        className="body-height z-20 bg-white rounded-2xl shadow-custom"
-      >
+      <div className="body-height z-20 bg-white rounded-2xl shadow-custom">
         <div className="h-full w-full flex flex-col justify-between">
           <StatusNotification />
           <div className="w-3/5 h-biometric">

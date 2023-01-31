@@ -6,22 +6,46 @@ import { BiCameraHome } from "react-icons/bi";
 import FrontFace from "../../assets/svgs/FrontFace.svg";
 import RightFace from "../../assets/svgs/RightFace.svg";
 import LeftFace from "../../assets/svgs/LeftFace.svg";
+import ResetIcon from "../../assets/svgs/FaceResetIcon.svg";
+
 //context
 import CameraContext from "../../context/CameraContext";
+import { toast } from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
 const FaceSideOptions = () => {
-  const { devices, setSelectedDevice } = useContext(CameraContext);
+  const {
+    devices,
+    setSelectedDevice,
+    setCaptureMode,
+    captureMode,
+    setFrontFace,
+    setRightFace,
+    setLeftFace,
+  } = useContext(CameraContext);
   const [showcameraSelector, setShowCameraSelector] = useState(false);
 
   const toggleCameraSelector = () => {
     setShowCameraSelector(!showcameraSelector);
   };
 
+  const resetPictures = () => {
+    setFrontFace(null);
+    setRightFace(null);
+    setLeftFace(null);
+    toast.success("cleared!");
+  };
+
   useEffect(() => {
     console.log(showcameraSelector);
   }, [showcameraSelector]);
+
+  const { pathname } = useLocation();
   return (
-    <div className="h-[60%] flex flex-col w-full justify-between items-center pt-4 ">
+    <div className="h-[60%] flex flex-col w-full justify-between items-center py-2 gap-4 relative">
+      {pathname !== "/face-scan" && (
+        <div className="h-[68vh] w-full bg-white  opacity-80 absolute z-10 flex flex-col justify-center items-center cursor-not-allowed text-darkBlue"></div>
+      )}
       {devices && (
         <div className="group flex relative flex-col items-center  text-xs 2xl:text-xs font-medium text-prime70">
           <AiFillCamera
@@ -34,9 +58,9 @@ const FaceSideOptions = () => {
               !showcameraSelector ? "opacity-0 invisible " : ""
             } `}
           >
-            {devices.map((device) => (
+            {devices.map((device, id) => (
               <p
-                key={device.id}
+                key={id}
                 onClick={() => {
                   setSelectedDevice(device);
                   setShowCameraSelector(false);
@@ -50,29 +74,64 @@ const FaceSideOptions = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-col items-center  text-xs 2xl:text-xs font-medium text-prime70">
+
+      <div
+        onClick={() => {
+          setCaptureMode("left");
+          toast.success("Left Side Mode!");
+        }}
+        className="flex flex-col items-center  text-xs 2xl:text-xs font-medium text-prime70"
+      >
         <img
-          className="rounded-full ring-[4px] ring-green w-14 h-14 p-2 2xl:h-20 2xl:w-20"
+          className={`${
+            captureMode === "left" ? "ring-[4px] ring-green " : ""
+          } rounded-full  w-14 h-14 p-2 2xl:h-20 2xl:w-20`}
+          src={LeftFace}
+          alt="FaceIconThree"
+        />
+        <p>Left Side</p>
+      </div>
+
+      <div
+        onClick={() => {
+          setCaptureMode("front");
+          toast.success("Front Face Mode!");
+        }}
+        className="flex  flex-col items-center  text-xs 2xl:text-xs font-medium text-prime70"
+      >
+        <img
+          className={`${
+            captureMode === "front" ? "ring-[4px] ring-green " : ""
+          } rounded-full  w-14 h-14 p-2 2xl:h-20 2xl:w-20`}
           src={FrontFace}
           alt="FaceIcon"
         />
         <p>Front</p>
       </div>
-      <div className="flex flex-col items-center  text-xs 2xl:text-xs font-medium text-prime70">
+
+      <div
+        onClick={() => {
+          setCaptureMode("right");
+          toast.success("Right Side Mode!");
+        }}
+        className="flex flex-col items-center  text-xs 2xl:text-xs font-medium text-prime70"
+      >
         <img
-          className="rounded-full w-14 h-14 p-2 2xl:h-20 2xl:w-20"
+          className={`${
+            captureMode === "right" ? "ring-[4px] ring-green " : ""
+          } rounded-full  w-14 h-14 p-2 2xl:h-20 2xl:w-20`}
           src={RightFace}
           alt="FaceIconTwo"
         />
         <p>Right Side</p>
       </div>
-      <div className="flex flex-col items-center  text-xs 2xl:text-xs font-medium text-prime70">
-        <img
-          className="rounded-full w-14 h-14 p-2 2xl:h-20 2xl:w-20"
-          src={LeftFace}
-          alt="FaceIconThree"
-        />
-        <p>Left Side</p>
+
+      <div
+        onClick={() => resetPictures()}
+        className="flex flex-col items-center space-y-1 pt-2"
+      >
+        <img className="h-8 w-8" src={ResetIcon} alt="Reset" />
+        <p className="text-center text-prime80 font-medium">Reset</p>
       </div>
     </div>
   );

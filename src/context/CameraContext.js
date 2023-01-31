@@ -1,17 +1,21 @@
-import React, { useState, createContext, useEffect, useRef } from "react";
+import React, {
+  useState,
+  createContext,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
 const CameraContext = createContext();
 export const CameraProvider = ({ children }) => {
+  //ref
+  const webcamRef = useRef();
   //devices to enumrate
   const [devices, setDevices] = useState([]);
-  const [SelectedDevice, setSelectedDevice] = useState({});
-
-  const [currentStream, setCurrentSream] = useState();
+  const [selectedDevice, setSelectedDevice] = useState({});
 
   //capture mode
   const [captureMode, setCaptureMode] = useState("front");
-  //cam width and heignt
-  const [feedHeight, setFeedHeight] = useState();
-  const [feedWidth, setFeedWidth] = useState();
+
   //faces
   const [frontFace, setFrontFace] = useState();
   const [leftFace, setLeftFace] = useState();
@@ -22,117 +26,49 @@ export const CameraProvider = ({ children }) => {
     gender: null,
   });
 
-  const imageRef = useRef(null);
-  const feedRef = useRef(null);
-
-  //a function to stop all streams
-  const stopMediaTracks = (stream) => {
-    stream.getTracks().forEach((track) => {
-      track.stop();
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef?.current?.getScreenshot({
+      width: 1920,
+      height: 1080,
     });
-  };
-
-  //a function used to enumrate and populate device list
-  const gotDevices = (mediaDevices) => {
-    let count = 1;
-    let deviceList = [];
-    mediaDevices.forEach((mediaDevice) => {
-      if (mediaDevice.kind === "videoinput") {
-        deviceList.push({
-          label: mediaDevice.label || `Camera ${count++}`,
-          id: mediaDevice.deviceId,
-        });
-      }
-      setDevices(deviceList);
-    });
-  };
-
-  const getCameras = () => {
-    if (typeof currentStream !== "undefined") {
-      stopMediaTracks(currentStream);
+    if (captureMode === "left") {
+      setLeftFace(imageSrc);
+    } else if (captureMode === "right") {
+      setRightFace(imageSrc);
+    } else if (captureMode === "front") {
+      setFrontFace(imageSrc);
     }
-    const videoConstraints = {
-      width: { min: 1024, ideal: 1920, max: 3450 },
-      height: { min: 576, ideal: 1080, max: 2600 },
-    };
-    if (SelectedDevice === null) {
-      videoConstraints.facingMode = "environment";
-    } else {
-      videoConstraints.deviceId = { exact: SelectedDevice.id };
-    }
-    const constraints = {
-      video: videoConstraints,
-      audio: false,
-    };
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then((stream) => {
-        setCurrentSream(stream);
-        let vid = feedRef.current;
-        vid.srcObject = stream;
-        setFeedWidth(stream.getTracks()[0].getSettings().width);
-        setFeedHeight(stream.getTracks()[0].getSettings().height);
-        vid.play();
-        return navigator.mediaDevices.enumerateDevices();
-      })
-      .then(gotDevices)
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [webcamRef, captureMode]);
+
+  const handleDevices = useCallback(
+    (mediaDevices) =>
+      setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
+    [setDevices]
+  );
 
   useEffect(() => {
-    // navigator.mediaDevices.enumerateDevices().then(getCameras);
-    getCameras();
-    // eslint-disable-next-line
-  }, [SelectedDevice]);
-
-  const takePicture = () => {
-    let video = feedRef.current;
-    let photo = imageRef.current;
-
-    photo.getContext("2d").drawImage(video, 0, 0, photo.width, photo.height);
-    let image_data_url = photo.toDataURL();
-    console.log(image_data_url);
-    // data url of the image
-    if (captureMode === "left") {
-      setLeftFace(image_data_url);
-    } else if (captureMode === "right") {
-      setRightFace(image_data_url);
-    } else if (captureMode === "front") {
-      setFrontFace(image_data_url);
-    }
-  };
-
-  const clearImage = () => {
-    let photo = imageRef.current;
-    let ctx = photo.getContext("2d");
-    ctx.clearRect(0, 0, photo.width, photo.height);
-  };
+    navigator.mediaDevices.enumerateDevices().then(handleDevices);
+  }, [handleDevices]);
 
   return (
     <CameraContext.Provider
       value={{
-        clearImage,
-        takePicture,
+        capture,
         setCaptureMode,
-        setSelectedDevice,
         setLeftFace,
         setRightFace,
         setFrontFace,
-        stopMediaTracks,
+        setSelectedDevice,
         setFaceVerificationFilterData,
         faceVerificationFilterData,
-        currentStream,
-        imageRef,
-        feedRef,
+        selectedDevice,
         captureMode,
-        feedHeight,
-        feedWidth,
-        frontFace,
         leftFace,
+        frontFace,
         rightFace,
         devices,
+        webcamRef,
       }}
     >
       {children}

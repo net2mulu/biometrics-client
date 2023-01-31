@@ -2,18 +2,21 @@ import { CgProfile } from "react-icons/cg";
 import { FiSettings } from "react-icons/fi";
 import { HiOutlineLogout } from "react-icons/hi";
 
-import ResetIcon from "../../assets/svgs/FaceResetIcon.svg";
 import ProfilePicture from "../../assets/svgs/AbebeFace.svg";
+import { osscDataVar } from "../../apollo/store";
 
 const SideOptions = ({ children }) => {
   return (
     <div className="rounded-2xl flex flex-col shadow-lg items-center justify-between w-full h-full bg-white">
       <div className="px-4">
-        <div className="w-full flex justify-center items-center py-4 2xl:py-8 border-b border-b-N99">
+        <div className="w-full flex justify-center items-center py-2 2xl:py-4 border-b border-b-N99">
           <div className="group relative z-50 ">
             <img
               className="w-20 rounded-full"
-              src={ProfilePicture}
+              src={
+                process.env.REACT_APP_MEDIA_SERVICE +
+                  osscDataVar()?.profile_picture || ProfilePicture
+              }
               alt="ProfilePicture"
             />
 
@@ -38,10 +41,7 @@ const SideOptions = ({ children }) => {
 
       {children}
 
-      <div className="flex flex-col items-center space-y-1">
-        <img className="h-8 w-8" src={ResetIcon} alt="Reset" />
-        <p className="text-center text-prime80 font-medium">Reset</p>
-      </div>
+     
 
       <div className="h-14 2xl:h-24 w-full relative rounded-b-2xl overflow-hidden">
         <svg className="smallWaveOne absolute bottom-0" viewBox="0 0 147 76.93">

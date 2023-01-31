@@ -1,5 +1,5 @@
-import { useState, createContext, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useState, createContext, useEffect } from "react";
 
 const ServerContext = createContext();
 
@@ -10,6 +10,7 @@ export const ServerProvider = ({ children }) => {
   const [ws, setWs] = useState(null);
   const [rs, setRs] = useState(false);
   const [fpMachineStatus, setFpMachineStatus] = useState("fp_unknown");
+  const [irisMachineStatus, setIrisMachineStatus] = useState("iris_unknown");
   const [handState, setHandState] = useState("red");
 
   const [loading, setLoading] = useState(false);
@@ -88,6 +89,7 @@ export const ServerProvider = ({ children }) => {
       setWs(null);
 
       setFpMachineStatus("fp_unknown");
+      setIrisMachineStatus("iris_unknown");
     };
 
     ws.onerror = (e) => {
@@ -95,7 +97,6 @@ export const ServerProvider = ({ children }) => {
     };
 
     ws.onmessage = (msg) => {
-      console.log(msg.data)
       if (checkJson(msg.data)) {
         JSON.parse(msg.data, function (key, value) {
           if (key === "left") {
@@ -138,13 +139,17 @@ export const ServerProvider = ({ children }) => {
             break;
           case "fpoff":
             setFpMachineStatus("fpoff");
-
+            break;
+          case "iris_on":
+            console.log("onnnnnnnnnn");
+            setIrisMachineStatus("iris_on");
+            break;
+          case "iris_off":
+            setIrisMachineStatus("iris_off");
             break;
           case "fp_unknown":
             setFpMachineStatus("fp_unknown");
-
             break;
-
           case "timeout":
             toast.success("Time out, please scan hands");
             break;
@@ -204,6 +209,8 @@ export const ServerProvider = ({ children }) => {
         irisModalOpened,
         availRightThumb,
         fingerprintVerificationFilterData,
+        irisMachineStatus,
+        setIrisMachineStatus,
         setFingerprintVerificationFilterData,
         setAvailLeftFinger,
         setAvailRightFinger,

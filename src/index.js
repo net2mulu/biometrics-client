@@ -15,7 +15,7 @@ root.render(
     <ServerProvider>
       <ModalProvider>
         <BrowserRouter>
-          <Toaster position="bottom-center" />
+          <Toaster position="top-right" />
           <App />
         </BrowserRouter>
       </ModalProvider>

@@ -12,6 +12,7 @@ import CameraContext from "../../../context/CameraContext";
 import { FACE_REGISTER } from "../../../apollo/mutation";
 import { faceDataVar, labourDatavar } from "../../../apollo/store";
 import { handleErrorMessage } from "../../utills/Helpers";
+import { FaTrash } from "react-icons/fa";
 // import useWebSocket, { ReadyState } from "react-use-websocket";
 
 const FaceCaptureControls = () => {
@@ -26,11 +27,10 @@ const FaceCaptureControls = () => {
   // );
 
   const {
-    takePicture,
+    capture,
     frontFace,
     leftFace,
     rightFace,
-    setCaptureMode,
     captureMode,
     setLeftFace,
     setRightFace,
@@ -84,54 +84,78 @@ const FaceCaptureControls = () => {
   return (
     <>
       <div className="flex flex-col relative border-2 border-primary rounded-2xl w-1/4">
-        <div className="flex flex-col justify-between space-x-2 items-center w-full pt-4 2xl:mt-12 px-2">
-          <div className="flex flex-col  space-y-2 items-center">
-            <img
-              onClick={() => {
-                setLeftFace(null);
-                setCaptureMode("left");
-              }}
-              className={`bg-N80 cursor-pointer shadow-md rounded w-28 z-10 ${
-                captureMode === "left"
-                  ? "outline-2 outline-offset-2 outline outline-green"
-                  : ""
-              }`}
-              src={leftFace ? leftFace : LeftFace}
-              alt="Right Face"
-            />
+        <div className="flex flex-col justify-between space-x-2 items-center w-full py-1 2xl:mt-6 px-2">
+          <div className="flex flex-col   items-center">
+            <div className={`group relative ${captureMode === "left" ? "w-50" : "w-40"}`}>
+              <img
+                className={`bg-N80 cursor-pointer shadow-md rounded  z-10 ${
+                  captureMode === "left"
+                    ? "outline-2 outline-offset-2 outline outline-green group-hover:outline-0"
+                    : ""
+                }`}
+                src={leftFace ? leftFace : LeftFace}
+                alt="Left Face"
+              />
+             {leftFace &&  <div
+                onClick={() => {
+                  setLeftFace(null);
+                }}
+                class="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
+              >
+                <div class="px-8 py-3 rounded-full">
+                  <FaTrash color="white" size={20} />
+                </div>
+              </div>}
+            </div>
 
             <p className="text-primary text">Left</p>
           </div>
           <div className="flex flex-col space-y-2 items-center">
-            <img
-              onClick={() => {
-                setFrontFace(null);
-                setCaptureMode("front");
-              }}
-              className={`bg-N80 cursor-pointer shadow-md rounded w-40 z-10 ${
-                captureMode === "front"
-                  ? "outline-2 outline-offset-2 outline outline-green"
-                  : ""
-              }`}
-              src={frontFace ? frontFace : FrontFace}
-              alt="Right Face"
-            />
+            <div className={`group relative ${captureMode === "front" ? "w-50" : "w-40"}`}>
+              <img
+                className={`bg-N80 cursor-pointer shadow-md rounded  z-10 ${
+                  captureMode === "front"
+                    ? "outline-2 outline-offset-2 outline outline-green group-hover:outline-0"
+                    : ""
+                }`}
+                src={frontFace ? frontFace : FrontFace}
+                alt="Front Face"
+              />
+             {frontFace && <div
+                onClick={() => {
+                  setFrontFace(null);
+                }}
+                class="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
+              >
+                <div class="px-8 py-3 rounded-full">
+                  <FaTrash color="white" size={20} />
+                </div>
+              </div>}{" "}
+            </div>
             <p className="text-primary text">Front</p>
           </div>
           <div className="flex flex-col space-y-2 items-center">
-            <img
-              onClick={() => {
-                setRightFace(null);
-                setCaptureMode("right");
-              }}
-              className={`bg-N80 cursor-pointer shadow-md rounded w-28 z-10 ${
-                captureMode === "right"
-                  ? "outline-2 outline-offset-2 outline outline-green"
-                  : ""
-              }`}
-              src={rightFace ? rightFace : RightFace}
-              alt="Right Face"
-            />
+            <div className={`group relative ${captureMode === "right" ? "w-50" : "w-40"}`}>
+              <img
+                className={`bg-N80 cursor-pointer shadow-md rounded  z-10 ${
+                  captureMode === "right"
+                    ? "outline-2 outline-offset-2 outline outline-green group-hover:outline-0"
+                    : ""
+                }`}
+                src={rightFace ? rightFace : RightFace}
+                alt="Right Face"
+              />
+             {rightFace && <div
+                onClick={() => {
+                  setRightFace(null);
+                }}
+                class="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
+              >
+                <div class="px-8 py-3 rounded-full">
+                  <FaTrash color="white" size={20} />
+                </div>
+              </div>}{" "}
+            </div>
             <p className="text-primary text">Right</p>
           </div>
         </div>
@@ -145,7 +169,7 @@ const FaceCaptureControls = () => {
             </button>
           ) : (
             <button
-              onClick={() => takePicture()}
+              onClick={() => capture()}
               className="bg-primary rounded font-medium text-sm text-white px-10 py-1.5"
             >
               Capture
