@@ -3,9 +3,13 @@ import NetworkImage from "../../assets/svgs/network.svg";
 import ServerContext from "../../context/ServerContext";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoIosCloseCircle, IoIosCheckmarkCircle } from "react-icons/io";
+import CameraContext from "../../context/CameraContext";
 
 const StatusNotification = () => {
-  const { status, fpMachineStatus } = useContext(ServerContext);
+  const { status, fpMachineStatus, irMachineStatus } =
+    useContext(ServerContext);
+
+  const { devices } = useContext(CameraContext);
 
   return (
     <div className="overflow-hidden z-20 text-white rounded-2xl shadow-custom fixed w-[25rem] 2xl:w-[32rem] scale-90 top-32 -right-1 3xl:h-[70%] h-[78%] bg-white">
@@ -43,56 +47,56 @@ const StatusNotification = () => {
           </div>
         )}
         <div className="py-4 px-8 flex items-start justify-between space-x-6">
-          <div className="w-[10%] flex flex-col items-center justify-start">
+          <div className="w-[10%] flex flex-col items-center justify-start -mt-2">
             {status && fpMachineStatus === "fpon" ? (
-              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full mb-2 bg-green/20" />
+              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full my-2 bg-green/20" />
             ) : fpMachineStatus === "fpoff" ? (
               <IoIosCloseCircle className="text-red text-xl 2xl:text-2xl p-1 rounded-full my-2 bg-red/20" />
             ) : fpMachineStatus === "fp_unknown" ? (
-              <AiOutlineLoading3Quarters className="animate-spin text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
+              <AiOutlineLoading3Quarters className="animate-spin my-2 text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
             ) : (
               ""
             )}
-            <div className="w-[2px] xl:h-14 2xl:h-12 h-12 bg-dark/30 mx-auto"></div>
-            
+            <div className="w-[2px] xl:h-16 2xl:h-11 h-12 bg-dark/30 mx-auto"></div>
+
             {/* iris */}
-            {status && fpMachineStatus === "fpon" ? (
-              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full mb-2 bg-green/20" />
-            ) : fpMachineStatus === "fpoff" ? (
+            {status && irMachineStatus === "iris_on" ? (
+              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full my-2 bg-green/20" />
+            ) : irMachineStatus === "iris_off" ? (
               <IoIosCloseCircle className="text-red text-xl 2xl:text-2xl p-1 rounded-full my-2 bg-red/20" />
-            ) : fpMachineStatus === "fp_unknown" ? (
-              <AiOutlineLoading3Quarters className="animate-spin text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
+            ) : irMachineStatus === "iris_unknown" ? (
+              <AiOutlineLoading3Quarters className="animate-spin my-2 text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
             ) : (
               ""
             )}
 
-            <div className="w-[2px] xl:h-12 2xl:h-10 h-12 bg-dark/30 mx-auto"></div>
-           
+            <div className="w-[2px] xl:h-12 2xl:h-11 h-12 bg-dark/30 mx-auto"></div>
+
             {/*  */}
-            {status && fpMachineStatus === "fpon" ? (
-              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full mb-2 bg-green/20" />
-            ) : fpMachineStatus === "fpoff" ? (
+            {status && devices.length > 1 ? (
+              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full my-2 bg-green/20" />
+            ) : devices.length <= 1 ? (
               <IoIosCloseCircle className="text-red text-xl 2xl:text-2xl p-1 rounded-full my-2 bg-red/20" />
-            ) : fpMachineStatus === "fp_unknown" ? (
-              <AiOutlineLoading3Quarters className="animate-spin text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
+            ) : !status ? (
+              <AiOutlineLoading3Quarters className="animate-spin my-2 text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
             ) : (
               ""
             )}
 
             <div className="w-[2px] xl:h-12 lg:h-14 2xl:h-10 h-10 bg-dark/30 mx-auto"></div>
-           
+
             {/*  */}
             {status && fpMachineStatus === "fpon" ? (
-              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full mb-2 bg-green/20" />
+              <IoIosCheckmarkCircle className="text-green p-1 text-xl 2xl:text-2xl rounded-full my-2 bg-green/20" />
             ) : fpMachineStatus === "fpoff" ? (
               <IoIosCloseCircle className="text-red text-xl 2xl:text-2xl p-1 rounded-full my-2 bg-red/20" />
             ) : fpMachineStatus === "fp_unknown" ? (
-              <AiOutlineLoading3Quarters className="animate-spin text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
+              <AiOutlineLoading3Quarters className="animate-spin my-2 text-primary p-1 text-xl 2xl:text-2xl rounded-full bg-primary/20" />
             ) : (
               ""
             )}
           </div>
-          <div className="w-11/12 text-darkBlue flex flex-col space-y-6">
+          <div className="w-11/12 text-darkBlue flex flex-col  gap-7">
             <div>
               <h3 className="font-semibold capitalize mb-1">
                 fingerprint sensor

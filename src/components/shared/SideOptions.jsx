@@ -12,7 +12,7 @@ const SideOptions = ({ children }) => {
         <div className="w-full flex justify-center items-center py-2 2xl:py-4 border-b border-b-N99">
           <div className="group relative z-50 ">
             <img
-              className="w-20 rounded-full"
+              className="w-20 h-20 object-cover rounded-full"
               src={
                 process.env.REACT_APP_MEDIA_SERVICE +
                   osscDataVar()?.profile_picture || ProfilePicture

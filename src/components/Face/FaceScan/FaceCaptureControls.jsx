@@ -13,19 +13,8 @@ import { FACE_REGISTER } from "../../../apollo/mutation";
 import { faceDataVar, labourDatavar } from "../../../apollo/store";
 import { handleErrorMessage } from "../../utills/Helpers";
 import { FaTrash } from "react-icons/fa";
-// import useWebSocket, { ReadyState } from "react-use-websocket";
 
 const FaceCaptureControls = () => {
-  // const [socketUrl, setSocketUrl] = useState("ws://192.168.137.194:8000");
-  // const [messageHistory, setMessageHistory] = useState([]);
-  // const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
-  //   socketUrl,
-  //   {
-  //     onOpen: (m) => console.log(m),
-  //     onMessage: (mes) => console.log(mes.data),
-  //   }
-  // );
-
   const {
     capture,
     frontFace,
@@ -45,16 +34,6 @@ const FaceCaptureControls = () => {
   const navigate = useNavigate();
 
   const hitApi = () => {
-    // console.log(readyState)
-    // sendJsonMessage({
-    //   type: "REGISTER_FACE",
-    //   body: {
-    //     labor_id: labourDatavar().id,
-    //     left_photo: leftFace,
-    //     right_photo: rightFace,
-    //     middle_photo: frontFace,
-    //   },
-    // });
     trackPromise(
       face_register({
         variables: {
@@ -86,7 +65,11 @@ const FaceCaptureControls = () => {
       <div className="flex flex-col relative border-2 border-primary rounded-2xl w-1/4">
         <div className="flex flex-col justify-between space-x-2 items-center w-full py-1 2xl:mt-6 px-2">
           <div className="flex flex-col   items-center">
-            <div className={`group relative ${captureMode === "left" ? "w-50" : "w-40"}`}>
+            <div
+              className={`group relative ${
+                captureMode === "left" ? "w-50" : "w-40"
+              }`}
+            >
               <img
                 className={`bg-N80 cursor-pointer shadow-md rounded  z-10 ${
                   captureMode === "left"
@@ -96,22 +79,28 @@ const FaceCaptureControls = () => {
                 src={leftFace ? leftFace : LeftFace}
                 alt="Left Face"
               />
-             {leftFace &&  <div
-                onClick={() => {
-                  setLeftFace(null);
-                }}
-                class="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
-              >
-                <div class="px-8 py-3 rounded-full">
-                  <FaTrash color="white" size={20} />
+              {leftFace && (
+                <div
+                  onClick={() => {
+                    setLeftFace(null);
+                  }}
+                  className="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
+                >
+                  <div className="px-8 py-3 rounded-full">
+                    <FaTrash color="white" size={20} />
+                  </div>
                 </div>
-              </div>}
+              )}
             </div>
 
             <p className="text-primary text">Left</p>
           </div>
           <div className="flex flex-col space-y-2 items-center">
-            <div className={`group relative ${captureMode === "front" ? "w-50" : "w-40"}`}>
+            <div
+              className={`group relative ${
+                captureMode === "front" ? "w-50" : "w-40"
+              }`}
+            >
               <img
                 className={`bg-N80 cursor-pointer shadow-md rounded  z-10 ${
                   captureMode === "front"
@@ -121,21 +110,27 @@ const FaceCaptureControls = () => {
                 src={frontFace ? frontFace : FrontFace}
                 alt="Front Face"
               />
-             {frontFace && <div
-                onClick={() => {
-                  setFrontFace(null);
-                }}
-                class="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
-              >
-                <div class="px-8 py-3 rounded-full">
-                  <FaTrash color="white" size={20} />
+              {frontFace && (
+                <div
+                  onClick={() => {
+                    setFrontFace(null);
+                  }}
+                  className="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
+                >
+                  <div className="px-8 py-3 rounded-full">
+                    <FaTrash color="white" size={20} />
+                  </div>
                 </div>
-              </div>}{" "}
+              )}{" "}
             </div>
             <p className="text-primary text">Front</p>
           </div>
           <div className="flex flex-col space-y-2 items-center">
-            <div className={`group relative ${captureMode === "right" ? "w-50" : "w-40"}`}>
+            <div
+              className={`group relative ${
+                captureMode === "right" ? "w-50" : "w-40"
+              }`}
+            >
               <img
                 className={`bg-N80 cursor-pointer shadow-md rounded  z-10 ${
                   captureMode === "right"
@@ -145,16 +140,18 @@ const FaceCaptureControls = () => {
                 src={rightFace ? rightFace : RightFace}
                 alt="Right Face"
               />
-             {rightFace && <div
-                onClick={() => {
-                  setRightFace(null);
-                }}
-                class="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
-              >
-                <div class="px-8 py-3 rounded-full">
-                  <FaTrash color="white" size={20} />
+              {rightFace && (
+                <div
+                  onClick={() => {
+                    setRightFace(null);
+                  }}
+                  className="rounded-md absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-red opacity-0 group-hover:h-full group-hover:opacity-80 duration-200"
+                >
+                  <div className="px-8 py-3 rounded-full">
+                    <FaTrash color="white" size={20} />
+                  </div>
                 </div>
-              </div>}{" "}
+              )}{" "}
             </div>
             <p className="text-primary text">Right</p>
           </div>

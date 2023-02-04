@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import useWebSocket from "react-use-websocket";
 import { useState, createContext, useEffect } from "react";
 
 const ServerContext = createContext();
@@ -7,10 +8,8 @@ export const ServerProvider = ({ children }) => {
   const [status, setStatus] = useState(false);
 
   // conn status
-  const [ws, setWs] = useState(null);
-  const [rs, setRs] = useState(false);
   const [fpMachineStatus, setFpMachineStatus] = useState("fp_unknown");
-  const [irisMachineStatus, setIrisMachineStatus] = useState("iris_unknown");
+  const [irMachineStatus, setIrMachineStatus] = useState("iris_unknown");
   const [handState, setHandState] = useState("red");
 
   const [loading, setLoading] = useState(false);
@@ -50,8 +49,16 @@ export const ServerProvider = ({ children }) => {
   const [rightIris, setRightIris] = useState(true);
   const [leftIris, setLeftIris] = useState(true);
 
+  // state variables
+  const [leftEyeToggle, setLeftEyeToggle] = useState(true);
+  const [rightEyeToggle, setRightEyeToggle] = useState(true);
+
   //scan states
   const [currentScanning, setCurrentScanning] = useState(null);
+  const [irisCurrentScanning, setIrisCurrentScanning] = useState(true);
+
+  const [leftIrisSuccess, setLeftIrisSuccess] = useState("");
+  const [rightIrisSuccess, setRightIrisSuccess] = useState("");
 
   const [leftHandFingersScan, setLeftHandFingersScan] = useState(false);
   const [rightHandFingersScan, setRightHandFingersScan] = useState(false);
@@ -66,37 +73,12 @@ export const ServerProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (!ws && rs !== 1) {
-      const socket = new WebSocket(process.env.REACT_APP_WEB_SOCKET_LINK);
-      setWs(socket);
-      setRs(socket.readyState);
-    }
-  }, [rs, ws]);
+    console.log(irMachineStatus);
+  }, [irMachineStatus]);
 
-  //states for fingerprint scan settings
-  const [availLeftFinger, setAvailLeftFinger] = useState(4);
-  const [availRightFinger, setAvailRightFinger] = useState(4);
-  const [availRightThumb, setAvailRightThumb] = useState(1);
-  const [availLeftThumb, setAvailLeftThumb] = useState(1);
-
-  if (ws) {
-    ws.onopen = () => {
-      setStatus(true);
-    };
-
-    ws.onclose = () => {
-      setStatus(false);
-      setWs(null);
-
-      setFpMachineStatus("fp_unknown");
-      setIrisMachineStatus("iris_unknown");
-    };
-
-    ws.onerror = (e) => {
-      // TODO: handle error
-    };
-
-    ws.onmessage = (msg) => {
+  const { sendMessage } = useWebSocket(process.env.REACT_APP_WEB_SOCKET_LINK, {
+    onOpen: () => setStatus(true),
+    onMessage: (msg) => {
       if (checkJson(msg.data)) {
         JSON.parse(msg.data, function (key, value) {
           if (key === "left") {
@@ -133,6 +115,7 @@ export const ServerProvider = ({ children }) => {
           }
         });
       } else {
+        console.log(msg.data);
         switch (msg.data) {
           case "fpon":
             setFpMachineStatus("fpon");
@@ -140,25 +123,64 @@ export const ServerProvider = ({ children }) => {
           case "fpoff":
             setFpMachineStatus("fpoff");
             break;
-          case "iris_on":
-            console.log("onnnnnnnnnn");
-            setIrisMachineStatus("iris_on");
-            break;
-          case "iris_off":
-            setIrisMachineStatus("iris_off");
-            break;
           case "fp_unknown":
             setFpMachineStatus("fp_unknown");
             break;
+          case "iris_on":
+            setIrMachineStatus("iris_on");
+            break;
+          case "iris_off":
+            setIrMachineStatus("iris_off");
+            break;
+          case "iris_unknown":
+            setIrMachineStatus("iris_off");
+            break;
           case "timeout":
-            toast.success("Time out, please scan hands");
+            toast.success("Time out, please scan!");
+            break;
+          case "left_eye_only_enabled":
+            toast.success("left_eye_only_enabled");
+            break;
+          case "right_eye_only_enabled":
+            toast.success("right_eye_only_enabled");
+            break;
+          case "both_eyes_enabled":
+            toast.success("Scanning Both Eyes");
+            break;
+          case "right_eye_unqualified":
+            setRightIrisSuccess("bad");
+            toast.error("Right Eye Unqualified!");
+            break;
+          case "left_eye_unqualified":
+            setLeftIrisSuccess("bad");
+            toast.error("Left Eye Unqualified!");
+            break;
+          case "both_eyes_are_unqualified":
+            setLeftIrisSuccess("bad");
+            setRightIrisSuccess("bad");
+            toast.error("Both Eyes Are Unqualified!");
             break;
           default:
             break;
         }
       }
-    };
-  }
+    },
+    onClose: () => {
+      setStatus(false);
+      setFpMachineStatus("fp_unknown");
+      setIrMachineStatus("iris_unknown");
+    },
+    //Will attempt to reconnect on all close events, such as server shutting down
+    shouldReconnect: (closeEvent) => true,
+    reconnectAttempts: 10,
+    reconnectInterval: 2000,
+  });
+
+  //states for fingerprint scan settings
+  const [availLeftFinger, setAvailLeftFinger] = useState(4);
+  const [availRightFinger, setAvailRightFinger] = useState(4);
+  const [availRightThumb, setAvailRightThumb] = useState(1);
+  const [availLeftThumb, setAvailLeftThumb] = useState(1);
 
   const checkJson = (msg) => {
     try {
@@ -169,22 +191,11 @@ export const ServerProvider = ({ children }) => {
     return true;
   };
 
-  const registerFingerPrint = async (url, data) => {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
-  };
-
   return (
     <ServerContext.Provider
       value={{
         status,
-        ws,
+        sendMessage,
         fpMachineStatus,
         fingerPrintPreview,
         handState,
@@ -209,8 +220,18 @@ export const ServerProvider = ({ children }) => {
         irisModalOpened,
         availRightThumb,
         fingerprintVerificationFilterData,
-        irisMachineStatus,
-        setIrisMachineStatus,
+        irMachineStatus,
+        leftEyeToggle,
+        rightEyeToggle,
+        irisCurrentScanning,
+        leftIrisSuccess,
+        setLeftIrisSuccess,
+        rightIrisSuccess,
+        setRightIrisSuccess,
+        setIrisCurrentScanning,
+        setRightEyeToggle,
+        setLeftEyeToggle,
+        setIrMachineStatus,
         setFingerprintVerificationFilterData,
         setAvailLeftFinger,
         setAvailRightFinger,
@@ -223,9 +244,7 @@ export const ServerProvider = ({ children }) => {
         setLeftHandFingersScan,
         setRightHandFingersScan,
         setThumbFingersScan,
-        setWs,
         setLoading,
-        registerFingerPrint,
         setLeftHandStatus,
         setRightHandStatus,
         setFingerPrintPreview,

@@ -1,15 +1,19 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import ServerContext from "../../../context/ServerContext";
 import ToggleButton from "../../shared/ToggleButton";
 
 const IrisToggle = () => {
-  const { leftIris, rightIris, setRightIris, setLeftIris } =
-    useContext(ServerContext);
-
-  // state variables
-  const [leftEyeToggle, setLeftEyeToggle] = useState(true);
-  const [rightEyeToggle, setRightEyeToggle] = useState(true);
+  const {
+    leftIris,
+    rightIris,
+    setRightIris,
+    setLeftIris,
+    leftEyeToggle,
+    setLeftEyeToggle,
+    rightEyeToggle,
+    setRightEyeToggle,
+  } = useContext(ServerContext);
 
   const ToggleLeftEye = () => {
     setLeftEyeToggle((prev) => !prev);

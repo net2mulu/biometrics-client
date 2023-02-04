@@ -5,27 +5,27 @@ import ServerContext from "../../context/ServerContext";
 import IrisImage from "../../assets/svgs/iris.svg";
 
 const IrisLink = ({ laborBiometricsStatus }) => {
-  const { status, irisMachineStatus } = useContext(ServerContext);
-  console.log(irisMachineStatus);
+  const { status, irMachineStatus } = useContext(ServerContext);
+
   const navigate = useNavigate();
 
   return (
     <div
       className={`bg-white ${
         !status ||
-        irisMachineStatus !== "iris_on" ||
+        irMachineStatus !== "iris_on" ||
         laborBiometricsStatus.iris_completed
           ? "disconnected"
           : ""
       } py-4 3xl:py-8 3xl:px-16 px-8 relative text-primary font-semibold rounded-md shadow-custom flex  flex-col items-center justify-center cursor-pointer`}
       onClick={() =>
-        status && !laborBiometricsStatus.iris_completed
+        status && !laborBiometricsStatus.iris_completed && irMachineStatus === "iris_on"
           ? navigate("/iris-setting")
           : laborBiometricsStatus.iris_completed
           ? toast.error("The labor is already registered by Iris!", {
               position: "top-left",
             })
-          : irisMachineStatus !== "iris_on" &&
+          : irMachineStatus !== "iris_on" &&
             toast.error("Iris Machine is not working!", {
               position: "top-left",
             })
@@ -40,7 +40,7 @@ const IrisLink = ({ laborBiometricsStatus }) => {
         alt="Iris"
         className={`${
           !status ||
-          irisMachineStatus !== "iris_on" ||
+          irMachineStatus !== "iris_on" ||
           laborBiometricsStatus.iris_completed
             ? "opacity-20"
             : ""
@@ -49,7 +49,7 @@ const IrisLink = ({ laborBiometricsStatus }) => {
       <h3
         className={`${
           !status ||
-          irisMachineStatus !== "iris_on" ||
+          irMachineStatus !== "iris_on" ||
           laborBiometricsStatus.iris_completed
             ? "text-gray"
             : ""

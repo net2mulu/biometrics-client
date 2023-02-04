@@ -12,7 +12,6 @@ import IrisLink from "../../components/biometricsHome/IrisLink";
 import FaceScanLink from "../../components/biometricsHome/FaceScanLink";
 import RegistrationSteps from "../../components/biometricsHome/RegistrationSteps";
 import LaborStatus from "../../components/biometricsHome/LaborStatus";
-import CameraContext from "../../context/CameraContext";
 
 const BiometricsHome = () => {
   const [laborBiometricsStatus, setLaborBiometricsStatus] = useState({
@@ -38,15 +37,12 @@ const BiometricsHome = () => {
     },
   });
 
-  const { status, ws } = useContext(ServerContext);
-  const { devices } = useContext(CameraContext);
-  console.log(devices.length);
-
+  const { status, sendMessage } = useContext(ServerContext);
   // to send labor id to the server by looking at status
   useEffect(() => {
     // if status is tru send labor id
     if (status) {
-      ws.send(`ID:${labourDatavar().id}`);
+      sendMessage(`ID:${labourDatavar()?.id}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);

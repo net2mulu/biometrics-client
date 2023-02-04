@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 //icons
 import { AiFillCamera } from "react-icons/ai";
 import { BiCameraHome } from "react-icons/bi";
@@ -35,10 +35,6 @@ const FaceSideOptions = () => {
     setLeftFace(null);
     toast.success("cleared!");
   };
-
-  useEffect(() => {
-    console.log(showcameraSelector);
-  }, [showcameraSelector]);
 
   const { pathname } = useLocation();
   return (
